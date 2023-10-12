@@ -81,16 +81,18 @@ export default function Add() {
 
     return (
         <React.Fragment>
-            <Button
-                aria-describedby={id}
-                variant="contained"
-                color="success"
-                disabled={!host}
-                endIcon={<Fingerprint />}
-                onClick={handleOpen}
-            >
-                新增
-            </Button>
+            <Container>
+                <Button
+                    aria-describedby={id}
+                    variant="contained"
+                    color="success"
+                    disabled={!host}
+                    endIcon={<Fingerprint />}
+                    onClick={handleOpen}
+                >
+                    新增
+                </Button>
+            </Container>
             <Popover
                 id={id}
                 open={open}

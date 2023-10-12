@@ -1,4 +1,4 @@
-import {syncCookie, syncCookieBySources} from '../../common/sync-cookie';
+import {syncCookieBySources} from '../../common/sync-cookie';
 import {resolveCookieSources} from '../../common/helper';
 
 chrome.runtime.onInstalled.addListener((details) => {
@@ -10,9 +10,9 @@ chrome.runtime.onInstalled.addListener((details) => {
     // });
 });
 
-chrome.cookies.onChanged.addListener((cookie) => {
-    console.log(cookie, 'cookie')
-})
+// chrome.cookies.onChanged.addListener((cookie) => {
+//     console.log(cookie, 'cookie')
+// })
 
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
@@ -32,10 +32,10 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 /**
  * 配置变更时同步一次 cookie
  */
-chrome.storage.onChanged.addListener(() => {
-    syncCookie().then(() => {
-        console.log('sync cookie success')
-    }).catch((e) => {
-        console.log('sync cookie fail', e)
-    })
-})
+// chrome.storage.onChanged.addListener(() => {
+//     syncCookie().then(() => {
+//         console.log('sync cookie success')
+//     }).catch((e) => {
+//         console.log('sync cookie fail', e)
+//     })
+// })

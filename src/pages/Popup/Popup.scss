@@ -12,10 +12,11 @@
     flex: 1;
     min-height: 0;
     position: relative;
+    overflow-y: auto;
   }
 
   .Footer {
-    flex-basis: 48px;
+    flex-basis: 36px;
   }
 
   img.Empty {

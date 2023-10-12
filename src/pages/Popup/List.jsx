@@ -1,22 +1,29 @@
 import React from 'react'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
+import ListItemIcon from '@mui/material/ListItemIcon'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
+import LaunchIcon from '@mui/icons-material/Launch'
 import {ConfigHook} from '../../common/config-hook'
 import {HostHook} from '../../common/host-hook'
 import empty from '../../assets/img/empty';
+import {resolveUrls} from "../../common/helper";
 
 export default function RuleList() {
     const [config] = ConfigHook()
     const host = HostHook()
 
-    if (!config || !config.rules || !Object.keys(config.rules).length || !Object.values(config.rules).some(d => d.length)) {
+    /**
+     * @type {string[]}
+     */
+    const targets = (config && config.rules && config.rules[host]) || []
+
+    if (!targets.length) {
         return (
             <Container sx={{
                 display: 'flex',
@@ -34,21 +41,19 @@ export default function RuleList() {
             </Container>
         )
     }
-    const rules = Object.entries(config.rules).sort((a, b) =>
-        a[0] === host ? -Infinity : a[0] - b[0])
 
     return (
         <Container
             sx={{
-                background: '#f1f4f8',
-                pt: 2,
-                pb: 2
+                pt: 0,
+                pb: 0,
+                pl: 0,
+                pr: 0,
             }}
         >
-            {rules.map(([source, targets]) => Array.isArray(targets) && targets.length ? <Box key={source}>
                 <List
                     sx={{ width: '100%', bgcolor: 'background.paper' }}
-                    subheader={<ListSubheader>{source}</ListSubheader>}
+                    subheader={<ListSubheader>{host} 共享的网站列表：</ListSubheader>}
                 >
                     {targets.map(target => (
                         <ListItem
@@ -59,13 +64,18 @@ export default function RuleList() {
                                 </IconButton>
                             }
                         >
+                            <ListItemIcon>
+                                <IconButton edge="end" aria-label="open">
+                                    <LaunchIcon />
+                                </IconButton>
+                            </ListItemIcon>
                             <ListItemText
                                 primary={target}
+                                secondary={resolveUrls(target).map(d => (<div>{d}</div>))}
                             />
                         </ListItem>
                     ))}
                 </List>
-            </Box> : null)}
         </Container>
     )
 }

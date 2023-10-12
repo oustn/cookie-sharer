@@ -12,6 +12,10 @@ export function ConfigHook() {
                 updateOption(res[STORAGE_KEY]);
             }
         });
+
+        chrome.storage.onChanged.addListener((changes) => {
+            updateOption(changes[STORAGE_KEY].newValue)
+        });
     }, []);
 
     return [option, (opt) => {
