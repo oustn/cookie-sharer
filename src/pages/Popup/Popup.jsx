@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
-import './Popup.css';
+import CssBaseline from '@mui/material/CssBaseline';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import createTheme from '@mui/material/styles/createTheme';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import List from './List';
+import Add from './Add';
+import './Popup.scss';
 
 const Popup = () => {
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    const theme = React.useMemo(
+        () =>
+            createTheme({
+                palette: {
+                    mode: prefersDarkMode ? 'dark' : 'light',
+                },
+            }),
+        [prefersDarkMode],
+    );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+            <div className="Body">
+                <List />
+            </div>
+            <div className="Footer">
+                <Add />
+            </div>
+        </div>
+      </ThemeProvider>
   );
 };
 

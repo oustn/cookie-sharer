@@ -8,9 +8,6 @@
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
   },
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
-  },
   "icons": {
     "128": "icon-128.png"
   },
@@ -27,5 +24,14 @@
       "resources": ["content.styles.css", "icon-128.png", "icon-34.png"],
       "matches": []
     }
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs"
   ]
 }
