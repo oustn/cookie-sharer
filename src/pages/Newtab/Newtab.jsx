@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/img/logo.svg';
+import logo from '../../assets/img/cookie-base@1x.png';
 import './Newtab.css';
 import './Newtab.scss';
 

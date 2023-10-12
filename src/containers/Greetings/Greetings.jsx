@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import icon from '../../assets/img/icon-128.png';
+import icon from '../../assets/img/cookie-base@1x.png';
 
 class GreetingComponent extends Component {
   state = {
