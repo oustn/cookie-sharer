@@ -6,9 +6,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import List from './List';
 import Add from './Add';
+import {HostHook} from "../../common/host-hook";
+
 import './Popup.scss';
 
 const Popup = () => {
+    const host = HostHook()
+
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     const theme = React.useMemo(

@@ -1,4 +1,14 @@
 import {STORAGE_KEY} from "./constant";
+import {resolveBasicUrl, resolveHostname} from "./helper";
+
+async function getCookie(url) {
+    if (!url) return null
+    const basicUrl = resolveBasicUrl(url)
+    if (!basicUrl) return null
+    return chrome.cookies.getAll({
+        url: basicUrl,
+    })
+}
 
 export async function syncCookie() {
     const res = await chrome.storage.sync.get(STORAGE_KEY)
@@ -42,4 +52,35 @@ export async function syncCookie() {
             }).reduce((acc, item) => [...acc, ...item], []))
         }))
     }
+}
+
+export async function syncCookieByUrl(target, source) {
+    if (!target || !source) return
+
+    const domain = resolveHostname(target)
+
+    const cookies = await getCookie(source)
+
+    if (!cookies || !cookies.length) {
+        return
+    }
+
+    return Promise.all(cookies.map(({ hostOnly, session, ...rest }) => {
+        if (!rest.name || !rest.value) {
+            return [Promise.resolve()]
+        }
+        const data = {
+            ...rest,
+            domain,
+        }
+        return chrome.cookies.set({
+            ...data,
+            url: target,
+        })
+    }))
+}
+
+export async function syncCookieBySources(target, sources) {
+    if (!target || !Array.isArray(sources) || !sources.length) return
+    return Promise.all(sources.map(source => syncCookieByUrl(target, source)))
 }
