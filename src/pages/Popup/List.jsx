@@ -9,14 +9,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import LaunchIcon from '@mui/icons-material/Launch'
-import {ConfigHook} from '../../common/config-hook'
-import {HostHook} from '../../common/host-hook'
 import empty from '../../assets/img/empty';
 import {resolveUrls} from "../../common/helper";
 
-export default function RuleList() {
-    const [config] = ConfigHook()
-    const host = HostHook()
+export default function RuleList({ host, config }) {
 
     /**
      * @type {string[]}

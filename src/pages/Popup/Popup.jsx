@@ -9,9 +9,11 @@ import Add from './Add';
 import {HostHook} from "../../common/host-hook";
 
 import './Popup.scss';
+import {ConfigHook} from "../../common/config-hook";
 
 const Popup = () => {
     const host = HostHook()
+    const [config, updateConfig] = ConfigHook()
 
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
@@ -25,19 +27,27 @@ const Popup = () => {
         [prefersDarkMode],
     );
 
-  return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="App">
-            <div className="Body">
-                <List />
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <div className="App">
+                <div className="Body">
+                    <List
+                        host={host}
+                        config={config}
+                        updateConfig={updateConfig}
+                    />
+                </div>
+                <div className="Footer">
+                    <Add
+                        host={host}
+                        config={config}
+                        updateConfig={updateConfig}
+                    />
+                </div>
             </div>
-            <div className="Footer">
-                <Add />
-            </div>
-        </div>
-      </ThemeProvider>
-  );
+        </ThemeProvider>
+    );
 };
 
 export default Popup;

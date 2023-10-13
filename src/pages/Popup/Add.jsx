@@ -7,15 +7,10 @@ import Container from "@mui/material/Container";
 import Fingerprint from "@mui/icons-material/Fingerprint";
 import RocketLaunch from "@mui/icons-material/RocketLaunch";
 import Cancel from '@mui/icons-material/Cancel';
-import {ConfigHook} from "../../common/config-hook";
-import {HostHook} from "../../common/host-hook";
 
-export default function Add() {
-    const [config, updateConfig] = ConfigHook()
+export default function Add({ host, updateConfig, config }) {
     const [target, setTarget] = React.useState('');
     const [error, setError] = React.useState('');
-
-    const host = HostHook()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
