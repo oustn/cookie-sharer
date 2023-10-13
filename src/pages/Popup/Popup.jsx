@@ -6,14 +6,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 import List from './List';
 import Add from './Add';
-import {HostHook} from "../../common/host-hook";
 
 import './Popup.scss';
-import {ConfigHook} from "../../common/config-hook";
 
-const Popup = () => {
-    const host = HostHook()
-    const [config, updateConfig] = ConfigHook()
+const Popup = ({runtime}) => {
 
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
@@ -33,16 +29,21 @@ const Popup = () => {
             <div className="App">
                 <div className="Body">
                     <List
-                        host={host}
-                        config={config}
-                        updateConfig={updateConfig}
+                        host={runtime.host}
+                        config={runtime.config}
+                        isSource={runtime.isCookieSource}
+                        isTarget={runtime.isCookieTarget}
+                        sources={runtime.sources}
+                        targets={runtime.targets}
+                        removeRule={(rule) => runtime.removeRule(rule)}
                     />
                 </div>
                 <div className="Footer">
                     <Add
-                        host={host}
-                        config={config}
-                        updateConfig={updateConfig}
+                        host={runtime.host}
+                        config={runtime.config}
+                        targets={runtime.targets}
+                        addRule={(rule) => runtime.addRule(rule)}
                     />
                 </div>
             </div>

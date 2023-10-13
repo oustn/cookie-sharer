@@ -12,13 +12,7 @@ import LaunchIcon from '@mui/icons-material/Launch'
 import empty from '../../assets/img/empty';
 import {resolveUrls} from "../../common/helper";
 
-export default function RuleList({ host, config }) {
-
-    /**
-     * @type {string[]}
-     */
-    const targets = (config && config.rules && config.rules[host]) || []
-
+export default function RuleList({host, config, targets, removeRule}) {
     if (!targets.length) {
         return (
             <Container sx={{
@@ -47,31 +41,38 @@ export default function RuleList({ host, config }) {
                 pr: 0,
             }}
         >
-                <List
-                    sx={{ width: '100%', bgcolor: 'background.paper' }}
-                    subheader={<ListSubheader>{host} 共享的网站列表：</ListSubheader>}
-                >
-                    {targets.map(target => (
-                        <ListItem
-                            key={target}
-                            secondaryAction={
-                                <IconButton edge="end" aria-label="delete">
-                                    <DeleteIcon />
-                                </IconButton>
-                            }
-                        >
-                            <ListItemIcon>
-                                <IconButton edge="end" aria-label="open">
-                                    <LaunchIcon />
-                                </IconButton>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={target}
-                                secondary={resolveUrls(target).map(d => (<div>{d}</div>))}
-                            />
-                        </ListItem>
-                    ))}
-                </List>
+            <List
+                sx={{width: '100%', bgcolor: 'background.paper'}}
+                subheader={<ListSubheader>{host} 共享的网站列表：</ListSubheader>}
+            >
+                {targets.map(target => (
+                    <ListItem
+                        key={target}
+                        secondaryAction={
+                            <IconButton
+                                edge="end"
+                                aria-label="delete"
+                                onClick={() => {
+                                    removeRule(target)
+                                }}
+                            >
+                                <DeleteIcon/>
+                            </IconButton>
+                        }
+                    >
+                        <ListItemIcon>
+                            <IconButton edge="end" aria-label="open">
+                                <LaunchIcon/>
+                            </IconButton>
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={target}
+                            secondary={resolveUrls(target).map(d => (
+                                <span style={{display: 'block'}} key={d}>{d}</span>))}
+                        />
+                    </ListItem>
+                ))}
+            </List>
         </Container>
     )
 }

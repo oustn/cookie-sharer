@@ -18,6 +18,8 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",
+    "mobx": "^6.10.2",
+    "mobx-react-lite": "^4.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

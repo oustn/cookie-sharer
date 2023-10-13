@@ -8,7 +8,7 @@ import Fingerprint from "@mui/icons-material/Fingerprint";
 import RocketLaunch from "@mui/icons-material/RocketLaunch";
 import Cancel from '@mui/icons-material/Cancel';
 
-export default function Add({ host, updateConfig, config }) {
+export default function Add({ host, addRule, targets }) {
     const [target, setTarget] = React.useState('');
     const [error, setError] = React.useState('');
 
@@ -50,24 +50,23 @@ export default function Add({ host, updateConfig, config }) {
             } else {
                 t = url.host
             }
-            const rules = config.rules || {}
-            const rule = [...(rules[host] || [])]
-            if (rule.includes(t)) {
+            if (targets.includes(t)) {
                 setError('共享地址已存在')
                 return
             }
-            rule.push(t)
-            updateConfig({
-                ...config,
-                rules: {
-                    ...rules,
-                    [host]: [...new Set(rule)]
-                }
-            })
-
+            addRule(t)
             handleClose()
         } catch (e) {
-            setError('请输入合法的地址')
+            console.log(e)
+            setError(e.message)
+        }
+    }
+
+    const handleSaveByEnter = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault()
+            event.stopPropagation()
+            handleSave()
         }
     }
 
@@ -101,7 +100,8 @@ export default function Add({ host, updateConfig, config }) {
                 <Container
                     sx={{
                         pt: 2,
-                        pb: 2
+                        pb: 2,
+                        width: '328px'
                     }}
                 >
                     <Typography variant="caption" display="block" sx={{ mb: 2 }} >新增共享规则</Typography>
@@ -141,6 +141,7 @@ export default function Add({ host, updateConfig, config }) {
                                 setTarget(event.target.value);
                             }}
                             onFocus={() => setError('')}
+                            onKeyDown={handleSaveByEnter}
                         />
                     </Container>
 

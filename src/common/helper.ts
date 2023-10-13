@@ -1,13 +1,14 @@
 import {STORAGE_KEY} from "./constant";
+import {Config} from "../env";
 
-export function resolveBasicUrl(url) {
+export function resolveBasicUrl(url: string) {
     if (!url) {
         return null;
     }
     return new URL(url).origin;
 }
 
-export function resolveUrls(url) {
+export function resolveUrls(url: string) {
     if (!url) {
         return null;
     }
@@ -20,7 +21,7 @@ export function resolveUrls(url) {
     ]
 }
 
-export function resolveHostname(url) {
+export function resolveHostname(url: string) {
     const urls = resolveUrls(url);
     if (!urls) {
         return null;
@@ -28,7 +29,7 @@ export function resolveHostname(url) {
     return new URL(urls[0]).hostname;
 }
 
-export async function resolveConfig() {
+export async function resolveConfig(): Promise<Config> {
     const res = await chrome.storage.sync.get(STORAGE_KEY);
     if (res && res[STORAGE_KEY]) {
         return res[STORAGE_KEY];
@@ -38,7 +39,13 @@ export async function resolveConfig() {
     }
 }
 
-export async function resolveCookieSources(url) {
+export function updateConfig(config: Config) {
+    return chrome.storage.sync.set({
+        [STORAGE_KEY]: config,
+    })
+}
+
+export async function resolveCookieSources(url: string) {
     const config = await resolveConfig();
     const {rules} = config;
     const data = []
@@ -69,8 +76,8 @@ export async function getCurrentTab() {
     return tab;
 }
 
-export async function updateExtensionIcon(icon) {
-    await chrome.action.setIcon({
+export async function updateExtensionIcon(icon: string) {
+    return chrome.action.setIcon({
         path: `${icon}.png`,
     })
 }

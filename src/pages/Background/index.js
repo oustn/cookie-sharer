@@ -1,58 +1,26 @@
-import {syncCookieBySources} from '../../common/sync-cookie';
-import {resolveConfig, resolveCookieSources, setDefaultIcon, setSourceIcon, setTargetIcon} from '../../common/helper';
+import {Runtime} from "../../state/runtime"
 
-chrome.runtime.onInstalled.addListener((details) => {
-    if (details.reason !== "install" && details.reason !== "update") return;
-    // chrome.contextMenus.create({
-    //     "id": "sampleContextMenu",
-    //     "title": "Sample Context Menu",
-    //     "contexts": ["selection"]
-    // });
-});
+const runtime = new Runtime()
 
-// chrome.cookies.onChanged.addListener((cookie) => {
-//     console.log(cookie, 'cookie')
-// })
-
+runtime.syncCookie(result => result.then(() => {
+    console.log(`sync cookie for ${runtime.host} from ${runtime.sources} success`)
+}).catch((e) => {
+    console.log(`sync cookie for ${runtime.host} from ${runtime.sources} fail`, e)
+}))
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-    const {status, url} = changeInfo
+    const {status} = changeInfo
+
     if (status !== 'loading') {
         return
     }
-    const result = await resolveCookieSources(url || tab.url)
-    if (!result || !result.sources.length) return
-    syncCookieBySources(result.url, result.sources).then(() => {
-        console.log(`sync cookie for ${result.url} from ${result.sources} success`)
-    }).catch((e) => {
-        console.log(`sync cookie for ${result.url} from ${result.sources} fail`, e)
-    })
+    // 重新加载 url / config
+    runtime.init()
 })
 
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
-    const tab = await chrome.tabs.get(activeInfo.tabId)
-    const config = await resolveConfig()
-
-    if (tab) {
-        try {
-            const url = new URL(tab.url)
-            if (config && config.rules) {
-                if (Array.isArray(config.rules[url.origin]) && config.rules[url.origin].length) {
-                    await setSourceIcon()
-                    return
-                }
-                const sources = await resolveCookieSources(url.origin)
-                if (sources && sources.sources.length) {
-                    await setTargetIcon()
-                    return
-                }
-            }
-        } catch (e) {
-            // do nothing
-        }
-    }
-
-    await setDefaultIcon()
+    // 重新加载 url / config
+    runtime.init()
 })
 
 
