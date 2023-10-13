@@ -2,7 +2,6 @@
   "manifest_version": 3,
   "name": "Cookie Sharer",
   "description": "A chrome extension to share cookies between different domains",
-  "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
   "action": {
     "default_popup": "popup.html",
@@ -11,14 +10,6 @@
   "icons": {
     "128": "cookie-base@1x.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
-      "js": ["contentScript.bundle.js"],
-      "css": ["content.styles.css"]
-    }
-  ],
-  "devtools_page": "devtools.html",
   "web_accessible_resources": [
     {
       "resources": ["content.styles.css", "cookie-base.png", "cookie-base@1x.png", "cookie-source.png", "cookie-source@1x.png", "cookie-target.png", "cookie-target@1x.png"],

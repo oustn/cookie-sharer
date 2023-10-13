@@ -1,11 +1,5 @@
 import React from 'react'
-
-async function getCurrentTab() {
-    let queryOptions = { active: true, lastFocusedWindow: true };
-    // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
-    return tab;
-}
+import {getCurrentTab} from "./helper";
 
 export function HostHook() {
     const [host, updateHost] = React.useState('')

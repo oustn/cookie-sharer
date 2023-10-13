@@ -1,5 +1,5 @@
 import {syncCookieBySources} from '../../common/sync-cookie';
-import {resolveCookieSources} from '../../common/helper';
+import {resolveConfig, resolveCookieSources, setDefaultIcon, setSourceIcon, setTargetIcon} from '../../common/helper';
 
 chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason !== "install" && details.reason !== "update") return;
@@ -28,6 +28,33 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         console.log(`sync cookie for ${result.url} from ${result.sources} fail`, e)
     })
 })
+
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+    const tab = await chrome.tabs.get(activeInfo.tabId)
+    const config = await resolveConfig()
+
+    if (tab) {
+        try {
+            const url = new URL(tab.url)
+            if (config && config.rules) {
+                if (Array.isArray(config.rules[url.origin]) && config.rules[url.origin].length) {
+                    await setSourceIcon()
+                    return
+                }
+                const sources = await resolveCookieSources(url.origin)
+                if (sources && sources.sources.length) {
+                    await setTargetIcon()
+                    return
+                }
+            }
+        } catch (e) {
+            // do nothing
+        }
+    }
+
+    await setDefaultIcon()
+})
+
 
 /**
  * 配置变更时同步一次 cookie

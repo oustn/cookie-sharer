@@ -19,6 +19,7 @@ export function resolveUrls(url) {
         new URL(`https://${url}`).origin,
     ]
 }
+
 export function resolveHostname(url) {
     const urls = resolveUrls(url);
     if (!urls) {
@@ -39,7 +40,7 @@ export async function resolveConfig() {
 
 export async function resolveCookieSources(url) {
     const config = await resolveConfig();
-    const { rules } = config;
+    const {rules} = config;
     const data = []
     const basicUrl = resolveBasicUrl(url);
     if (!rules || !basicUrl) return null;
@@ -59,4 +60,29 @@ export async function resolveCookieSources(url) {
         url: basicUrl,
         sources: data,
     };
+}
+
+export async function getCurrentTab() {
+    let queryOptions = {active: true, lastFocusedWindow: true};
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab;
+}
+
+export async function updateExtensionIcon(icon) {
+    await chrome.action.setIcon({
+        path: `${icon}.png`,
+    })
+}
+
+export async function setDefaultIcon() {
+    await updateExtensionIcon('cookie-base');
+}
+
+export async function setTargetIcon() {
+    await updateExtensionIcon('cookie-target');
+}
+
+export async function setSourceIcon() {
+    await updateExtensionIcon('cookie-source');
 }
