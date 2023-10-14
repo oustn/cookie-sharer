@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Cookie Sharer",
+  "description": "Share cookies between different domains",
+  "version": "1.0",
+  "background": {
+    "service_worker": "src/background.ts"
+  },
+  "action": {
+    "default_title": "Cookie Sharer",
+    "default_popup": "popup.html"
+  },
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs"
+  ]
+}
