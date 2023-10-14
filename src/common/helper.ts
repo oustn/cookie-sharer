@@ -78,18 +78,6 @@ export async function getCurrentTab() {
 
 export async function updateExtensionIcon(icon: string) {
     return chrome.action.setIcon({
-        path: `${icon}.png`,
+        path: `icons/${icon}16.png`,
     })
-}
-
-export async function setDefaultIcon() {
-    await updateExtensionIcon('cookie-base');
-}
-
-export async function setTargetIcon() {
-    await updateExtensionIcon('cookie-target');
-}
-
-export async function setSourceIcon() {
-    await updateExtensionIcon('cookie-source');
 }

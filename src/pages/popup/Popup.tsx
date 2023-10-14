@@ -43,13 +43,15 @@ const Popup = ({runtime}: PopupProps) => {
                         removeRule={(rule) => runtime.removeRule(rule)}
                     />
                 </div>
-                <div className="Footer">
+                {
+                    !runtime.isCookieTarget && <div className="Footer">
                     <Add
                         host={runtime.host}
                         targets={runtime.targets}
                         addRule={(rule) => runtime.addRule(rule)}
                     />
-                </div>
+                    </div>
+                }
             </div>
         </ThemeProvider>
     );

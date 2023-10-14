@@ -62,6 +62,8 @@ export function ChromeExtensionManifestPlugin(): Plugin {
                 return acc
             }, {})
 
+            manifest.action.default_icon = manifest.icons['16']
+
             this.emitFile({
                 fileName: 'manifest.json',
                 type: 'asset',

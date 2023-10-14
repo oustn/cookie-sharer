@@ -64,7 +64,7 @@ export class Runtime {
     get state() {
         if (this.isCookieSource) return 'source'
         if (this.isCookieTarget) return 'target'
-        return 'base'
+        return 'icon'
     }
 
     @computed
@@ -76,7 +76,7 @@ export class Runtime {
         this.init()
         makeObservable(this)
         reaction(() => this.state, async state => {
-            await updateExtensionIcon(`cookie-${state}`)
+            await updateExtensionIcon(`${state}`)
         })
 
         reaction(() => this.config, async () => {

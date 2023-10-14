@@ -4,7 +4,8 @@
   "description": "Share cookies between different domains",
   "version": "1.0",
   "background": {
-    "service_worker": "src/background.ts"
+    "service_worker": "src/background.ts",
+    "type": "module"
   },
   "action": {
     "default_title": "Cookie Sharer",

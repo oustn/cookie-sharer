@@ -20,8 +20,8 @@ interface RuleListProps {
     isTarget: boolean
 }
 
-export default function RuleList({host, targets, removeRule}: RuleListProps) {
-    if (!targets.length) {
+export default function RuleList({targets, removeRule, isTarget, sources}: RuleListProps) {
+    if (!isTarget && !targets.length) {
         return (
             <Container sx={{
                 display: 'flex',
@@ -40,6 +40,14 @@ export default function RuleList({host, targets, removeRule}: RuleListProps) {
         )
     }
 
+    const header = isTarget ? 'Cookie 来自以下网站：' : '共享的网站列表：'
+
+    const handleNewTab = async (url: string) => {
+        chrome.tabs.create({url}).catch(e => {
+            console.log(e)
+        })
+    }
+
     return (
         <Container
             sx={{
@@ -51,9 +59,9 @@ export default function RuleList({host, targets, removeRule}: RuleListProps) {
         >
             <List
                 sx={{width: '100%', bgcolor: 'background.paper'}}
-                subheader={<ListSubheader>{host} 共享的网站列表：</ListSubheader>}
+                subheader={<ListSubheader>{header}</ListSubheader>}
             >
-                {targets.map(target => (
+                {(isTarget ? sources : targets).map(target => (
                     <ListItem
                         key={target}
                         secondaryAction={
@@ -69,7 +77,11 @@ export default function RuleList({host, targets, removeRule}: RuleListProps) {
                         }
                     >
                         <ListItemIcon>
-                            <IconButton edge="end" aria-label="open">
+                            <IconButton
+                                edge="end"
+                                aria-label="open"
+                                onClick={() => handleNewTab(target)}
+                            >
                                 <LaunchIcon/>
                             </IconButton>
                         </ListItemIcon>
