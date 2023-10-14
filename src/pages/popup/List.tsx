@@ -11,6 +11,8 @@ import LaunchIcon from '@mui/icons-material/Launch'
 import empty from '@src/assets/empty.svg';
 import {resolveUrls} from "@src/common";
 
+import Cookie from './Cookie.tsx';
+
 interface RuleListProps {
     host: string
     targets: string[]
@@ -18,9 +20,10 @@ interface RuleListProps {
     removeRule: (target: string) => void
     isSource: boolean
     isTarget: boolean
+    handleSuccess: () => void
 }
 
-export default function RuleList({targets, removeRule, isTarget, sources}: RuleListProps) {
+export default function RuleList({targets, removeRule, isTarget, sources, isSource, handleSuccess}: RuleListProps) {
     if (!isTarget && !targets.length) {
         return (
             <Container sx={{
@@ -65,7 +68,7 @@ export default function RuleList({targets, removeRule, isTarget, sources}: RuleL
                     <ListItem
                         key={target}
                         secondaryAction={
-                            <IconButton
+                            isSource ? (<IconButton
                                 edge="end"
                                 aria-label="delete"
                                 onClick={() => {
@@ -73,7 +76,10 @@ export default function RuleList({targets, removeRule, isTarget, sources}: RuleL
                                 }}
                             >
                                 <DeleteIcon/>
-                            </IconButton>
+                            </IconButton>) : <Cookie
+                                host={target}
+                                handleSuccess={handleSuccess}
+                            />
                         }
                     >
                         <ListItemIcon>
@@ -87,8 +93,8 @@ export default function RuleList({targets, removeRule, isTarget, sources}: RuleL
                         </ListItemIcon>
                         <ListItemText
                             primary={target}
-                            secondary={resolveUrls(target)?.map(d => (
-                                <span style={{display: 'block'}} key={d}>{d}</span>))}
+                            secondary={isSource ? resolveUrls(target)?.map(d => (
+                                <span style={{display: 'block'}} key={d}>{d}</span>)) : ''}
                         />
                     </ListItem>
                 ))}

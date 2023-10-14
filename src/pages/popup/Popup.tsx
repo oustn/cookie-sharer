@@ -10,6 +10,8 @@ import List from './List';
 import Add from './Add';
 
 import './Popup.scss';
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 interface PopupProps {
     runtime: Runtime
@@ -29,6 +31,20 @@ const Popup = ({runtime}: PopupProps) => {
         [prefersDarkMode],
     );
 
+    const [notificationOpen, setOpen] = React.useState(false);
+
+    const handleNotificationOpen = () => {
+        setOpen(true);
+    };
+
+    const handleNotificationClose = (_: unknown, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
@@ -41,6 +57,7 @@ const Popup = ({runtime}: PopupProps) => {
                         sources={runtime.sources}
                         targets={runtime.targets}
                         removeRule={(rule) => runtime.removeRule(rule)}
+                        handleSuccess={handleNotificationOpen}
                     />
                 </div>
                 {
@@ -53,6 +70,12 @@ const Popup = ({runtime}: PopupProps) => {
                     </div>
                 }
             </div>
+            <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} open={notificationOpen}
+                      autoHideDuration={2000} onClose={handleNotificationClose}>
+                <Alert onClose={handleNotificationClose} severity="success" sx={{width: '100%'}}>
+                    复制成功!
+                </Alert>
+            </Snackbar>
         </ThemeProvider>
     );
 };

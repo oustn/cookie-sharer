@@ -1,6 +1,6 @@
 import {resolveBasicUrl, resolveHostname} from "./helper";
 
-async function getCookie(url: string) {
+export async function getCookie(url: string) {
     if (!url) return null
     const basicUrl = resolveBasicUrl(url)
     if (!basicUrl) return null
