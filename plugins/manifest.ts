@@ -3,7 +3,6 @@ import type {Plugin} from 'vite'
 import _ from 'lodash'
 import Manifest from "../manifest.json"
 
-
 export function resolveEntries() {
     const entries: { key: string, value: string, name: string, path: string }[] = [];
 
@@ -33,6 +32,10 @@ export function resolveEntries() {
 
 export function ChromeExtensionManifestPlugin(): Plugin {
     const manifest: chrome.runtime.ManifestV3 = JSON.parse(JSON.stringify(Manifest))
+
+    if (process.env.COOKIE_RELEASE_VERSION) {
+        manifest.version = process.env.COOKIE_RELEASE_VERSION
+    }
 
     return {
         name: 'vite-plugin-chrome-extension-manifest',

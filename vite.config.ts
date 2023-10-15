@@ -1,8 +1,20 @@
+import path from "node:path";
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
+import zipPack from "vite-plugin-zip-pack";
 
 import {ViteIconPlugin, resolveEntries, ChromeExtensionManifestPlugin} from './plugins'
-import path from "node:path";
+import packageJson from './package.json';
+
+const zip = process.env.COOKIE_VERSION
+
+const externalPlugin = []
+if (zip) {
+    externalPlugin.push(zipPack({
+        outDir: './archives',
+        outFileName: `${packageJson.name}-${zip}.zip`
+    }))
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +30,7 @@ export default defineConfig({
             name,
         })),
         ChromeExtensionManifestPlugin(),
+        ...externalPlugin,
     ],
 
     build: {
