@@ -3,9 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "repository": {
-    "url": "https://github.com/oustn/cookie-sharer.git"
-  },
+  "repositoryUrl": "git@github.com:oustn/cookie-sharer.git",
   "scripts": {
     "dev": "tsc && vite build --watch",
     "build": "tsc && vite build",
