@@ -1,13 +1,17 @@
 {
-  "name": "cookie-sharer-vite",
+  "name": "cookie-sharer",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "repository": {
+    "url": "https://github.com/oustn/cookie-sharer.git"
+  },
   "scripts": {
     "dev": "tsc && vite build --watch",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "semantic-release"
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
@@ -20,6 +24,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@semantic-release/exec": "^6.0.3",
     "@types/chrome": "^0.0.246",
     "@types/lodash": "^4.14.199",
     "@types/node": "^18.18.2",
@@ -34,8 +39,10 @@
     "favicons": "^7.1.4",
     "lodash": "^4.17.21",
     "sass": "^1.69.3",
+    "semantic-release": "^22.0.5",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-zip-pack": "^1.0.6"
   },
   "volta": {
     "node": "18.18.2",
