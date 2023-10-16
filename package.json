@@ -39,6 +39,7 @@
     "favicons": "^7.1.4",
     "lodash": "^4.17.21",
     "sass": "^1.69.3",
+    "semantic-release": "^22.0.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-plugin-zip-pack": "^1.0.6"

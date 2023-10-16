@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f23be0b-0f65-46b4-b9de-76faea230e63" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/manifest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/plugins/manifest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.node.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.node.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.ts" afterDir="false" />
-    </list>
+    <list default="true" id="5f23be0b-0f65-46b4-b9de-76faea230e63" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +37,9 @@
         </option>
       </RecentBranches>
     </option>
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="76w8agwq" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
