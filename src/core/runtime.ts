@@ -92,10 +92,12 @@ export class Runtime {
                 const url = new URL(tab.url || '')
                 if (url.protocol === 'http:' || url.protocol === 'https:') {
                     this.updateHost(url.origin)
+                    return
                 }
             } catch (e) {
                 // do nothing
             }
+            this.updateHost('')
         })
 
         resolveConfig().then(config => {
