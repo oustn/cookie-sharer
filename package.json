@@ -27,7 +27,7 @@
     "@types/chrome": "^0.0.248",
     "@types/lodash": "^4.14.199",
     "@types/lodash.isequal": "^4.5.8",
-    "@types/node": "^18.18.2",
+    "@types/node": "^20.0.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -45,7 +45,7 @@
     "vite-plugin-zip-pack": "^1.0.6"
   },
   "volta": {
-    "node": "18.18.2",
+    "node": "20.13.1",
     "npm": "10.2.1"
   }
 }
