@@ -58,6 +58,7 @@ const Popup = ({runtime}: PopupProps) => {
                         targets={runtime.targets}
                         removeRule={(rule) => runtime.removeRule(rule)}
                         handleSuccess={handleNotificationOpen}
+                        handleActive={(rule: string) => runtime.handleActive(rule)}
                     />
                 </div>
                 {
@@ -65,7 +66,10 @@ const Popup = ({runtime}: PopupProps) => {
                     <Add
                         host={runtime.host}
                         targets={runtime.targets}
-                        addRule={(rule) => runtime.addRule(rule)}
+                        addRule={(rule) => runtime.addRule({
+                          host: rule,
+                          activated: false
+                        })}
                     />
                     </div>
                 }
