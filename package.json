@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@semantic-release/exec": "^6.0.3",
-    "@types/chrome": "^0.0.248",
+    "@types/chrome": "^0.0.268",
     "@types/lodash": "^4.14.199",
     "@types/lodash.isequal": "^4.5.8",
     "@types/node": "^18.18.2",
