@@ -7,11 +7,12 @@ import Container from "@mui/material/Container";
 import Fingerprint from "@mui/icons-material/Fingerprint";
 import RocketLaunch from "@mui/icons-material/RocketLaunch";
 import Cancel from '@mui/icons-material/Cancel';
+import type {Target} from "@src/types";
 
 interface AddProps {
     host: string
     addRule: (target: string) => void
-    targets: string[]
+    targets: Target[]
 }
 
 export default function Add({host, addRule, targets}: AddProps) {
@@ -56,7 +57,7 @@ export default function Add({host, addRule, targets}: AddProps) {
             } else {
                 t = url.host
             }
-            if (targets.includes(t)) {
+            if (targets.find(target => target.host === t)) {
                 setError('共享地址已存在')
                 return
             }

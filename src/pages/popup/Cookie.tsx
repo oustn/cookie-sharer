@@ -51,6 +51,9 @@ export default function Cookie({host, handleSuccess}: CookieProps) {
                 aria-label="delete"
                 onClick={handleOpen}
                 disabled={!cookies.length}
+                sx={{
+                  ml: '8px'
+                }}
             >
                 <CookieIcon
                     color={cookies.length ? "success" : "disabled"}
