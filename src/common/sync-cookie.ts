@@ -20,7 +20,10 @@ export async function syncCookieByUrl(target: string, source: string) {
         return
     }
 
-    return Promise.all(cookies.map(({hostOnly, session, ...rest}) => {
+    return Promise.all(cookies.map((cookie) => {
+        const rest = { ...cookie }
+        Reflect.deleteProperty(rest, 'hostOnly')
+        Reflect.deleteProperty(rest, 'session')
         if (!rest.name || !rest.value) {
             return [Promise.resolve()]
         }

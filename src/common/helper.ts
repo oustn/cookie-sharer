@@ -45,39 +45,18 @@ export function updateConfig(config: Config) {
     })
 }
 
-export async function resolveCookieSources(url: string) {
-    const config = await resolveConfig();
-    const {rules} = config;
-    const data = []
-    const basicUrl = resolveBasicUrl(url);
-    if (!rules || !basicUrl) return null;
-
-    for (const [source, targets] of Object.entries(rules)) {
-        if (!Array.isArray(targets)) continue;
-        for (const target of targets) {
-            const urls = resolveUrls(target);
-            if (!urls) continue;
-            if (urls.includes(basicUrl)) {
-                data.push(source);
-            }
-        }
-    }
-
-    return {
-        url: basicUrl,
-        sources: data,
-    };
-}
-
 export async function getCurrentTab() {
-    let queryOptions = {active: true, lastFocusedWindow: true};
+    const queryOptions = {active: true, lastFocusedWindow: true};
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
-    let [tab] = await chrome.tabs.query(queryOptions);
+    const [tab] = await chrome.tabs.query(queryOptions);
     return tab;
 }
 
-export async function updateExtensionIcon(icon: string) {
-    return chrome.action.setIcon({
+export async function updateExtensionIcon(icon: string, badge = '') {
+    await chrome.action.setIcon({
         path: `icons/${icon}16.png`,
+    })
+    await chrome.action.setBadgeText({
+        text: badge,
     })
 }
