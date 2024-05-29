@@ -107,7 +107,7 @@ export class Runtime {
 
         reaction(() => this.config, async () => {
             await updateConfig(toJS(this.config))
-        }, { fireImmediately: true })
+        })
     }
 
     init() {
