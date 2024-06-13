@@ -19,5 +19,18 @@
     "cookies",
     "storage",
     "tabs"
+  ],
+  "content_scripts": [
+    {
+      "js": ["src/contents/dev/index.ts"],
+      "css": ["src/contents/dev/index.scss"],
+      "dynamic": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/contents/inject.ts"],
+      "matches": ["<all_urls>"]
+    }
   ]
 }

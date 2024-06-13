@@ -5,8 +5,8 @@
   "type": "module",
   "repositoryUrl": "git@github.com:oustn/cookie-sharer.git",
   "scripts": {
-    "dev": "tsc && vite build --watch",
-    "build": "tsc && vite build",
+    "dev": "cross-env NODE_ENV=development tsx ./lib/build.ts",
+    "build": "tsx ./lib/build.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "release": "semantic-release"
@@ -20,7 +20,8 @@
     "mobx": "^6.10.2",
     "mobx-react-lite": "^4.0.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@semantic-release/exec": "^6.0.3",
@@ -42,7 +43,9 @@
     "semantic-release": "^22.0.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vite-plugin-zip-pack": "^1.0.6"
+    "vite-plugin-zip-pack": "^1.0.6",
+    "cross-env": "^7.0.3",
+    "tsx": "^4.12.0"
   },
   "volta": {
     "node": "20.13.1",
