@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f23be0b-0f65-46b4-b9de-76faea230e63" name="更改" comment="" />
+    <list default="true" id="5f23be0b-0f65-46b4-b9de-76faea230e63" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +68,8 @@
     "git-widget-placeholder": "alpha",
     "go.import.settings.migrated": "true",
     "javascript.nodejs.core.library.configured.version": "18.18.2",
-    "javascript.nodejs.core.library.typings.version": "18.18.2",
+    "javascript.nodejs.core.library.typings.version": "18.18.14",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/oustn/playground/cookie-sharer",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -125,8 +128,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -141,6 +144,7 @@
       <workItem from="1697250827492" duration="8091000" />
       <workItem from="1697292787967" duration="5409000" />
       <workItem from="1697340660029" duration="1988000" />
+      <workItem from="1718266688390" duration="156000" />
     </task>
     <servers />
   </component>
