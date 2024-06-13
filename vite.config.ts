@@ -39,7 +39,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "@src": path.resolve(__dirname, "src")
+            '@src': path.resolve(__dirname, 'src'),
         },
     },
     plugins: [
@@ -60,14 +60,14 @@ export default defineConfig({
         rollupOptions: {
             input: resolveEntries().reduce<Record<string, string>>((acc, item) => {
                 acc[item.name] = item.path;
-                return acc
+                return acc;
             }, {}),
             output: {
                 entryFileNames(chunkInfo) {
                     if (/\.html$/.test(chunkInfo.facadeModuleId)) {
-                        return 'assets/[name]-[hash:8].js'
+                        return 'assets/[name]-[hash:8].js';
                     }
-                    return '[name].js'
+                    return '[name].js';
                 },
             },
         },
