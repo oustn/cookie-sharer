@@ -1,6 +1,13 @@
-import { URL_CHANGE_MESSAGE } from '@src/common';
+import { CONFIG_CHANGE_EVENT, onStorageChanged, SPY_ID, URL_CHANGE_MESSAGE } from '@src/common';
+import { process } from './actions';
 
 import './index.scss';
+
+const spy = document.createElement('div');
+spy.id = SPY_ID;
+spy.style.display = 'none';
+spy.setAttribute('version', chrome.runtime.getManifest().version);
+document.body.appendChild(spy);
 
 const injectScript = (file: string, node: string) => {
   const th = document.querySelector(node);
@@ -11,7 +18,15 @@ const injectScript = (file: string, node: string) => {
 };
 injectScript(chrome.runtime.getURL('inject.js'), 'body');
 
-window.addEventListener('message', (event) => {
+onStorageChanged(() => {
+  const event = new Event(CONFIG_CHANGE_EVENT);
+  spy.dispatchEvent(event);
+});
+
+window.addEventListener('message', (event: MessageEvent<{
+  type: string,
+  payload: { path: string, query: string }
+}>) => {
   // We only accept messages from ourselves
   if (event.source !== window) {
     return;
@@ -21,11 +36,12 @@ window.addEventListener('message', (event) => {
     return;
   }
 
-  launch();
+  const { path, query } = event.data.payload || {};
+
+  launch(path, query);
 }, false);
 
-function launch() {
+function launch(path: string, query: string) {
   console.log('🚀');
+  process(path, query);
 }
-
-launch();

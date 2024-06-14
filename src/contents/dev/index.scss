@@ -1,0 +1,12 @@
+table > colgroup > col:nth-child(1) {
+  width: 550px !important;
+}
+
+table > colgroup > col:nth-child(7) {
+  width: 300px !important;
+}
+
+.__inject_from_plugin {
+  display: inline-block;
+  margin-left: 8px;
+}

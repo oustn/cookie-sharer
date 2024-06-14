@@ -1,5 +1,6 @@
 import { Runtime } from '@src/core';
-import { STORAGE_KEY } from '@src/common';
+import { onStorageChanged, resolveConfig } from '@src/common';
+import { Target } from '@src/types';
 
 declare const contentScripts: Array<{ js: Array<string>, css: Array<string> }>;
 
@@ -32,7 +33,7 @@ async function unregisterAllDynamicContentScripts() {
       'An unexpected error occurred while',
       'unregistering dynamic content scripts.',
     ].join(' ');
-    console.log(error)
+    console.log(error);
     throw new Error(message);
   }
 }
@@ -47,24 +48,21 @@ function generateContentScriptOptions(hosts: Array<string>): chrome.scripting.Re
     id: `content-script-${index + 1}`,
     runAt: 'document_end',
     matches: hosts.map(host => `${host}/modeling/*`),
-  }))
+  }));
 }
 
-chrome.storage.onChanged.addListener(async (changes, areaName) => {
-  if (areaName !== 'sync') {
-    return;
-  }
-  if (!(STORAGE_KEY in changes)) {
-    return;
-  }
+async function registerContentScripts(rules: Record<string, Target[]>) {
   await unregisterAllDynamicContentScripts();
-  console.log('unregisterAllDynamicContentScripts')
+  console.log('unregisterAllDynamicContentScripts');
   if (!Array.isArray(contentScripts) || !contentScripts.length) {
     return;
   }
-  const rules = (changes[STORAGE_KEY].newValue as { rules: Record<string, unknown> }).rules;
   const hosts = Object.keys(rules);
   if (!hosts.length) return;
   await chrome.scripting.registerContentScripts(generateContentScriptOptions(hosts));
-  console.log('registerContentScripts')
-});
+  console.log('registerContentScripts');
+}
+
+onStorageChanged(registerContentScripts);
+
+resolveConfig().then(config => registerContentScripts(config.rules))
