@@ -8,5 +8,10 @@ table > colgroup > col:nth-child(7) {
 
 .__inject_from_plugin {
   display: inline-block;
-  margin-left: 8px;
+  margin-left: 16px;
+}
+
+.mobile-header_right .__inject_from_plugin {
+  margin-top: 8px;
+  margin-right: 16px;
 }

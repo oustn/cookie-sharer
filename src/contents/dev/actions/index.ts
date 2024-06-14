@@ -1,9 +1,13 @@
 import { render } from '../Button';
 import { Action, RenderAction } from './base.ts';
 import { listAction } from './list-action.ts';
+import { designerAction } from './designer-action.ts';
+import { previewAction } from './preview-action.ts';
 
 const actions: Action[] = [
   listAction,
+  designerAction,
+  previewAction,
 ];
 
 function inject(target: Element, index: number, actions: Array<RenderAction> | RenderAction) {

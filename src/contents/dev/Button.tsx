@@ -21,7 +21,8 @@ export function Button({ actions }: ButtonProps) {
       variant="contained"
       onClick={button.onClick}
       sx={{
-        ml: i === 0 ? 0 : 1
+        ml: i === 0 ? 0 : 1,
+        fontSize: '14px'
       }}
     >
       {button.name}
