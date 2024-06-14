@@ -2,6 +2,8 @@
 
 version=$1
 
+echo "$1" "==>"
+
 # 替换 -alpha 为空字符串
 metadata=${version//-alpha/}
 
