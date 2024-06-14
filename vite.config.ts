@@ -9,6 +9,7 @@ import { isDev, resolveEntries } from './lib/utils';
 import packageJson from './package.json';
 
 const zip = process.env.EXTENSION_VERSION;
+console.log(process.env)
 
 const externalPlugin = [];
 if (zip) {
