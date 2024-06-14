@@ -10,6 +10,7 @@
     "vite.config.ts",
     "plugins/**/*.ts",
     "manifest.json",
-    "package.json"
+    "package.json",
+    "./lib/**/*.ts"
   ]
 }
