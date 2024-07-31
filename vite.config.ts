@@ -58,12 +58,6 @@ export default defineConfig({
           ? {}
           : undefined,
         sourcemap: isDev,
-        minify: 'terser',
-        terserOptions: {
-            mangle: {
-                reserved: ['_']
-            }
-        },
         rollupOptions: {
             input: resolveEntries().reduce<Record<string, string>>((acc, item) => {
                 acc[item.name] = item.path;

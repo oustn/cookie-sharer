@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 import { isDev } from './lib/utils';
+import { toIife } from './plugins/to-iife'
 import packageJson from './package.json';
 
 // https://vitejs.dev/config/
@@ -19,6 +20,7 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    toIife(),
   ],
 
   build: {
