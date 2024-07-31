@@ -16,13 +16,13 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.13",
     "@mui/material": "^5.14.13",
+    "clipboard": "^2.0.11",
+    "lodash": "^4.17.21",
     "lodash.isequal": "^4.5.0",
     "mobx": "^6.10.2",
     "mobx-react-lite": "^4.0.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lodash": "^4.17.21",
-    "clipboard": "^2.0.11"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@semantic-release/exec": "^6.0.3",
@@ -35,6 +35,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "cross-env": "^7.0.3",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
@@ -42,11 +43,11 @@
     "lodash": "^4.17.21",
     "sass": "^1.69.3",
     "semantic-release": "^22.0.5",
+    "terser": "^5.31.3",
+    "tsx": "^4.12.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vite-plugin-zip-pack": "^1.0.6",
-    "cross-env": "^7.0.3",
-    "tsx": "^4.12.0"
+    "vite-plugin-zip-pack": "^1.0.6"
   },
   "volta": {
     "node": "20.13.1",
