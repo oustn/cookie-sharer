@@ -22,6 +22,8 @@ export abstract class Action {
     return;
   }
 
+  async postWait() {}
+
   private async getTarget() {
     const config = await resolveConfig();
     const rules = config.rules;
@@ -35,12 +37,13 @@ export abstract class Action {
     };
   }
 
-  protected dispatchOpen(url: string) {
+  protected dispatchOpen(url: string, options?: Record<string, unknown>) {
     const spy = document.getElementById(SPY_ID);
     if (!spy) return;
     const event = new CustomEvent(OPEN_EVENT, {
       detail: {
         url,
+        options,
       },
     });
     spy.dispatchEvent(event);

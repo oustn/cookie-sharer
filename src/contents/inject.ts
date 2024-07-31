@@ -92,7 +92,13 @@ if (spy) {
   });
 
   spy.addEventListener(OPEN_EVENT, (e: Event) => {
-    window.open((e as unknown as CustomEvent)?.detail?.url, '_blank');
+    const { url, options } = (e as unknown as CustomEvent)?.detail ?? {};
+    let target = url
+    if (!url) return
+    if (options && options.withHash) {
+      target = `${url}${window.location.hash}`
+    }
+    window.open(target, '_blank');
   });
 }
 

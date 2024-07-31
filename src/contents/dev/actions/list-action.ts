@@ -27,6 +27,13 @@ class ListAction extends Action {
     });
   }
 
+  async postWait() {
+    const table = document.querySelector('.page-grid table')
+    if (table) {
+      table.classList.add('__inject_from_plugin_table')
+    }
+  }
+
   get renderActions(): Array<RenderAction> | RenderAction {
     const result = [];
     if (this.target?.dev) {

@@ -26,6 +26,7 @@ export function process(path: string, searchParams: string) {
   actions.forEach(async action => {
     if (action.isTarget(path, new URLSearchParams(searchParams))) {
       await action.wait();
+      await action.postWait();
       if (!action.renderActions || (Array.isArray(action.renderActions) && !action.renderActions.length)) {
         return;
       }

@@ -10,13 +10,24 @@ class DesignerAction extends Action {
   injectTarget = '.header-right .btns';
 
   get renderActions(): RenderAction | RenderAction[] {
-    if (!this.target?.preview) return [];
-    return {
-      name: '预览',
-      execute: () => {
-        this.handleViewDev();
-      },
-    };
+    const result = []
+    if (this.target?.dev) {
+      result.push({
+        name: '开发',
+        execute: () => {
+          this.handleDev();
+        },
+      });
+    }
+    if (this.target?.preview) {
+      result.push({
+        name: '预览',
+        execute: () => {
+          this.handleViewDev();
+        },
+      })
+    }
+    return result;
   }
 
   isTarget(path: string): boolean {
@@ -39,6 +50,13 @@ class DesignerAction extends Action {
   private handleViewDev() {
     if (!this.metadata) return;
     this.dispatchOpen(`${this.target?.preview ?? ''}${this.metadata.url}`);
+  }
+
+  private handleDev() {
+    if (!this.metadata) return;
+    this.dispatchOpen(`${this.target?.dev ?? ''}/mobile/`, {
+      withHash: true,
+    });
   }
 }
 

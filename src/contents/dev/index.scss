@@ -1,8 +1,8 @@
-.page-grid table > colgroup > col:nth-child(1) {
+table.__inject_from_plugin_table > colgroup > col:nth-child(1) {
   width: 550px !important;
 }
 
-.page-grid table > colgroup > col:nth-child(7) {
+table.__inject_from_plugin_table > colgroup > col:nth-child(7) {
   width: 300px !important;
 }
 
