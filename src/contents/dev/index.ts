@@ -2,7 +2,7 @@ import {
   CONFIG_CHANGE_EVENT,
   onStorageChanged,
   RESOLVE_STORAGE,
-  resolveConfig,
+  resolveConfig, resolveUrls,
   SPY_ID, SYNC_STORAGE,
   URL_CHANGE_MESSAGE,
 } from '@src/common';
@@ -95,7 +95,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const source = Object.entries(config.rules).find(([_, value]) => {
-    return value.find(u => u.host === host &&  u.activated)
+    return value.find(u => (u.host === host || resolveUrls(u.host)?.includes(host)) && u.activated)
   })?.[0]
   if (!source) return
   console.log(`Current host: ${host}, source: ${source}`, `Try to resolve ${source} storages`)
