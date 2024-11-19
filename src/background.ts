@@ -1,5 +1,5 @@
 import { Runtime } from '@src/core';
-import { onStorageChanged, RESOLVE_STORAGE, resolveConfig } from '@src/common';
+import { onStorageChanged, RESOLVE_STORAGE, resolveConfig, resolveUrls } from '@src/common';
 import { Target } from '@src/types';
 
 declare const contentScripts: Array<{ js: Array<string>, css: Array<string> }>;
@@ -47,7 +47,7 @@ function generateContentScriptOptions(hosts: Array<string>): chrome.scripting.Re
     ...content,
     id: `content-script-${index + 1}`,
     runAt: 'document_end',
-    matches: hosts.map(host => `${host}/*`),
+    matches: Array.from(new Set(hosts)).map(host => `${host}/*`),
   }));
 }
 
@@ -58,7 +58,8 @@ async function registerContentScripts(rules: Record<string, Target[]>) {
     return;
   }
   const hosts = Object.keys(rules);
-  const targets = Object.values(rules).flat().filter(d => d.activated).map(d => d.host)
+  const targets = Object.values(rules).flat()
+    .filter(d => d.activated && d.host).map(d => resolveUrls(d.host)!).flat()
   if (!hosts.length) return;
   await chrome.scripting.registerContentScripts(generateContentScriptOptions([...hosts, ...targets]));
   console.log('registerContentScripts');
