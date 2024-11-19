@@ -1,28 +1,28 @@
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListSubheader from '@mui/material/ListSubheader'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
-import Switch from '@mui/material/Switch'
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Switch from '@mui/material/Switch';
 import empty from '@src/assets/empty.svg';
-import {resolveUrls} from "@src/common";
+import { resolveUrls } from '@src/common';
 
 import Cookie from './Cookie.tsx';
-import type {Target} from "@src/types";
+import type { Target } from '@src/types';
 
 interface RuleListProps {
-  host: string
-  targets: Target[]
-  sources: Target[]
-  removeRule: (target: string) => void
-  isSource: boolean
-  isTarget: boolean
-  handleSuccess: () => void
-  handleActive: (target: string) => void
+  host: string;
+  targets: Target[];
+  sources: Target[];
+  removeRule: (target: string) => void;
+  isSource: boolean;
+  isTarget: boolean;
+  handleSuccess: () => void;
+  handleActive: (target: string) => void;
 }
 
 export default function RuleList({
@@ -32,7 +32,7 @@ export default function RuleList({
                                    sources,
                                    isSource,
                                    handleSuccess,
-                                   handleActive
+                                   handleActive,
                                  }: RuleListProps) {
   if (!isTarget && !targets.length) {
     return (
@@ -47,19 +47,19 @@ export default function RuleList({
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <img className="Empty" src={empty} alt="empty"/>
-        <Typography variant="caption" display="block" sx={{mt: 2}}>请添加规则</Typography>
+        <img className="Empty" src={empty} alt="empty" />
+        <Typography variant="caption" display="block" sx={{ mt: 2 }}>请添加规则</Typography>
       </Container>
-    )
+    );
   }
 
-  const header = isTarget ? 'Cookie 来自以下网站：' : '共享的网站列表：'
+  const header = isTarget ? 'Cookie 来自以下网站：' : '共享的网站列表：';
 
   const handleNewTab = async (url: string) => {
-    chrome.tabs.create({url}).catch(e => {
-      console.log(e)
-    })
-  }
+    chrome.tabs.create({ url }).catch(e => {
+      console.log(e);
+    });
+  };
 
   return (
     <Container
@@ -71,30 +71,32 @@ export default function RuleList({
       }}
     >
       <List
-        sx={{width: '100%', bgcolor: 'background.paper'}}
+        sx={{ width: '100%', bgcolor: 'background.paper' }}
         subheader={<ListSubheader>{header}</ListSubheader>}
       >
         {(isTarget ? sources : targets).map(item => {
-          const target = item.host
-          const active = item.activated
+          const target = item.host;
+          const active = item.activated;
 
           return (
             <ListItem
               key={target}
               secondaryAction={[
                 (<IconButton
+                  key="delete"
                   edge="end"
                   aria-label="delete"
                   onClick={() => {
-                    removeRule(target)
+                    removeRule(target);
                   }}
                 >
-                  <DeleteIcon/>
+                  <DeleteIcon />
                 </IconButton>),
                 isTarget && <Cookie
-                    host={target}
-                    handleSuccess={handleSuccess}
-                />
+                  key="show-cookie"
+                  host={target}
+                  handleSuccess={handleSuccess}
+                />,
               ]}
               sx={{
                 pl: 0,
@@ -103,15 +105,15 @@ export default function RuleList({
             >
               {
                 <ListItemIcon>
-                   <Switch
-                     disabled={!isTarget}
-                      edge="end"
-                      onChange={() => handleActive(target)}
-                      checked={active}
-                      inputProps={{
-                        'aria-labelledby': 'active-rule',
-                      }}
-                    />
+                  <Switch
+                    disabled={!isTarget}
+                    edge="end"
+                    onChange={() => handleActive(target)}
+                    checked={active}
+                    inputProps={{
+                      'aria-labelledby': 'active-rule',
+                    }}
+                  />
                 </ListItemIcon>
               }
               <ListItemText
@@ -119,7 +121,7 @@ export default function RuleList({
                 title={target}
                 secondary={isSource ? resolveUrls(target)?.map(d => (
                   <span
-                    style={{display: 'block'}}
+                    style={{ display: 'block' }}
                     key={d}>{d}</span>)) : ''
                 }
                 sx={{
@@ -127,15 +129,15 @@ export default function RuleList({
                   pr: isTarget ? '24px' : 0,
                   span: {
                     overflow: 'hidden',
-                    textOverflow: 'ellipsis'
-                  }
+                    textOverflow: 'ellipsis',
+                  },
                 }}
                 onClick={() => handleNewTab(target)}
               />
             </ListItem>
-          )
+          );
         })}
       </List>
     </Container>
-  )
+  );
 }

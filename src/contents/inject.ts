@@ -1,4 +1,11 @@
-import { CONFIG_CHANGE_EVENT, OPEN_EVENT, RESPONSE_MESSAGE, SPY_ID, URL_CHANGE_MESSAGE } from '@src/common';
+import {
+  CONFIG_CHANGE_EVENT,
+  OPEN_EVENT,
+  RESPONSE_MESSAGE,
+  SPY_ID,
+  URL_CHANGE_MESSAGE,
+  SYNC_STORAGE, RESOLVE_STORAGE,
+} from '@src/common';
 import { MyXMLHttpRequest } from './xhr';
 
 interface Payload {
@@ -93,12 +100,38 @@ if (spy) {
 
   spy.addEventListener(OPEN_EVENT, (e: Event) => {
     const { url, options } = (e as unknown as CustomEvent)?.detail ?? {};
-    let target = url
-    if (!url) return
+    let target = url;
+    if (!url) return;
     if (options && options.withHash) {
-      target = `${url}${window.location.hash}`
+      target = `${url}${window.location.hash}`;
     }
     window.open(target, '_blank');
+  });
+
+  spy.addEventListener(RESOLVE_STORAGE, () => {
+    window.postMessage({
+      type: RESOLVE_STORAGE,
+      payload: {
+        local: Object.fromEntries(Object.entries(localStorage)),
+        session: Object.fromEntries(Object.entries(sessionStorage)),
+      },
+    }, '*');
+  });
+
+  spy.addEventListener(SYNC_STORAGE, (e: Event) => {
+    console.log(`Sync storage from spy`);
+    const { local, session } = (e as unknown as CustomEvent)?.detail ?? {};
+    if (local) {
+      Object.keys(local).forEach((key) => {
+        localStorage.setItem(key, local[key]);
+      });
+    }
+
+    if (session) {
+      Object.keys(session).forEach((key) => {
+        sessionStorage.setItem(key, session[key]);
+      });
+    }
   });
 }
 

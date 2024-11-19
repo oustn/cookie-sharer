@@ -44,7 +44,7 @@ export class MyXMLHttpRequest extends originalXhr {
           key && headers.append(key, value);
         });
 
-        const response = new Response(this.response, {
+        const response = new Response([101, 204, 205, 304].includes(this.status) ? null : this.response, {
           status: this.status,
           statusText: this.statusText,
           headers: headers,
@@ -77,4 +77,6 @@ export class MyXMLHttpRequest extends originalXhr {
   }
 }
 
-window.XMLHttpRequest = MyXMLHttpRequest.bind(window).bind(window)
+if (window.location.pathname.includes('/modeling')) {
+  window.XMLHttpRequest = MyXMLHttpRequest.bind(window).bind(window)
+}
