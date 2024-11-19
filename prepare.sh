@@ -9,3 +9,5 @@ export EXTENSION_RELEASE_VERSION=$metadata
 export EXTENSION_VERSION=$version
 
 npm run build
+
+npx crx pack ./dist -o ./archives/cookie-sharer-"$version".crx -p ./cookie-sharer.pem

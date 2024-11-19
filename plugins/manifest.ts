@@ -4,6 +4,8 @@ import _ from 'lodash';
 import Manifest from '../manifest.json';
 import { cleanArray, resolveEntries } from '../lib/utils';
 
+export { resolveEntries };
+
 function transformDynamicContentScripts(contentScripts: Map<string, string>) {
   const result = [];
   contentScripts.forEach((value, key) => {
