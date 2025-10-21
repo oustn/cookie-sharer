@@ -1,12 +1,13 @@
-import {resolveBasicUrl, resolveHostname} from "./helper";
+import { resolveBasicUrl, resolveHostname } from './helper';
 
 export async function getCookie(url: string) {
     if (!url) return null
     const basicUrl = resolveBasicUrl(url)
-    if (!basicUrl) return null
-    return chrome.cookies.getAll({
-        url: basicUrl,
-    })
+    const hostname = resolveHostname(url)
+    return (await Promise.all([
+        basicUrl ? chrome.cookies.getAll({ url: basicUrl, }) : [],
+        hostname ? chrome.cookies.getAll({ domain: hostname }) : [],
+    ])).flat()
 }
 
 export async function syncCookieByUrl(target: string, source: string) {

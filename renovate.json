@@ -2,5 +2,10 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base"
-  ]
+  ],
+  "baseBranches": ["alpha"],
+  "automerge": true,
+  "automergeType": "pr",
+  "prCreation": "not-pending",
+  "rebaseWhen": "auto"
 }
