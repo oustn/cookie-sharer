@@ -25,6 +25,8 @@ export async function syncCookieByUrl(target: string, source: string) {
         const rest = { ...cookie }
         Reflect.deleteProperty(rest, 'hostOnly')
         Reflect.deleteProperty(rest, 'session')
+        Reflect.deleteProperty(rest, 'secure')
+        Reflect.deleteProperty(rest, 'sameSite')
         if (!rest.name || !rest.value) {
             return [Promise.resolve()]
         }
