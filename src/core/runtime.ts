@@ -181,12 +181,20 @@ export class Runtime {
         this.depose = reaction(() => ({
             host: this.host,
             sources: this.sources.filter(d => d.activated).map(d => d.host),
-            active: this.isCookieTarget
-        }), async ({ sources, host, active }, { sources: oldSources, host: oldHost}) => {
+            active: this.isCookieTarget,
+            rewritePath: this.config.rewritePath,
+        }), async ({ sources, host, active, rewritePath }, { sources: oldSources, host: oldHost}) => {
             if (isEqual(sources, oldSources) && host === oldHost) return
             if (!active) return
-            callback(syncCookieBySources(this.host, sources))
+            callback(syncCookieBySources(this.host, sources, { rewritePath }))
         })
+    }
+
+    @action
+    setRewritePath(value: boolean) {
+        const config = toJS(this.config)
+        config.rewritePath = value
+        this.config = config
     }
 
     @action

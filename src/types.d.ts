@@ -1,5 +1,6 @@
 export interface Config {
   rules: Record<string, Array<Target>>;
+  rewritePath?: boolean;
 }
 
 export interface Target {

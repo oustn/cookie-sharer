@@ -4,6 +4,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import createTheme from '@mui/material/styles/createTheme';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import Tooltip from '@mui/material/Tooltip';
+import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import {Runtime} from "@src/core";
 
 import List from './List';
@@ -73,6 +79,29 @@ const Popup = ({runtime}: PopupProps) => {
                     />
                     </div>
                 }
+                <Divider />
+                <Box sx={{ px: 2, py: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Tooltip
+                        title="开启后，同步时将所有 Cookie 的 path 重写为 /，避免因 path 不匹配导致 Cookie 设置失败"
+                        placement="top"
+                        arrow
+                    >
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    size="small"
+                                    checked={!!runtime.config.rewritePath}
+                                    onChange={(e) => runtime.setRewritePath(e.target.checked)}
+                                />
+                            }
+                            label={
+                                <Typography variant="caption" sx={{ userSelect: 'none' }}>
+                                    重写 Cookie 路径为 /
+                                </Typography>
+                            }
+                        />
+                    </Tooltip>
+                </Box>
             </div>
             <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} open={notificationOpen}
                       autoHideDuration={2000} onClose={handleNotificationClose}>
